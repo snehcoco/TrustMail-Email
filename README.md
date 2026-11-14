@@ -2,18 +2,17 @@
 
 TrustMail is an explainable hybrid ensemble framework for email phishing detection. It combines email text with phishing-oriented structural features, uses calibrated machine-learning models to classify messages, and provides local explanations for their predictions. The project studies both predictive performance and whether independent models agree on the evidence behind their decisions.
 
-## Project overview
+### **Project Overview**
 
-The primary system represents email bodies with 5,000 TF-IDF unigram and bigram features plus nine phishing-oriented structural features. A calibrated Linear Support Vector Machine (SVM) and a Random Forest provide complementary predictions, combined through weighted probability averaging. A supplementary three-model experiment adds an RBF Kernel SVM.
+- **Core Architecture:** Combines 5,000 TF-IDF unigram/bigram features and nine phishing-oriented structural features using a calibrated Linear SVM and Random Forest via weighted probability averaging (with a supplementary RBF Kernel SVM option).
 
-For explainability, model-specific SHAP explainers estimate local feature contributions. A rule-based layer maps attributions to seven human-interpretable phishing concepts and remediation advice. TrustMail measures explanation agreement with a SHAP Consistency Score (mean 44.03 on Enron) and an Explanation Evidence-Convergence Score (EECS; mean 62.97 on Enron), which combines prediction agreement, probability similarity, concept agreement, and attribution consistency.
+- **Explainability & TrustMail:** Uses model-specific SHAP explainers mapped by a rule-based layer into seven human-interpretable phishing concepts and remediation advice, measured via the SHAP Consistency Score (44.03) and Explanation Evidence-Convergence Score (EECS; 62.97) on Enron.
 
-## Evaluation highlights
+### **Evaluation Highlights**
 
-Models are trained on the AVN corpus of 41,000 emails (32,800 training and 8,200 held out). The primary cross-dataset experiment evaluates them on a decontaminated Enron spam and malicious email corpus of 28,256 emails, without retraining. In this zero-shot evaluation, the two-model SVM–Random Forest ensemble reports 81.45% accuracy, 84.36% precision, 75.85% recall, and 79.88% F1-score. A reproduced PhishingGNN baseline evaluated under the same protocol reports 78.50% accuracy, 70.76% recall, and 76.17% F1-score. The supplementary Linear SVM–Kernel SVM–Random Forest ensemble achieves 78.79% accuracy on Enron.
+- **Training & Zero-Shot Testing:** Trained on 41,000 AVN corpus emails and evaluated zero-shot on 28,256 Enron corpus emails, achieving 81.45% accuracy, 84.36% precision, 75.85% recall, and 79.88% F1-score (outperforming a PhishingGNN baseline of 78.50% accuracy and 76.17% F1-score).
 
-The cross-dataset performance drop is a key finding. The mean out-of-vocabulary ratio between AVN and Enron is 40.0%, indicating substantial vocabulary mismatch that likely contributes to the drop. Enron's positive class includes messages labeled spam, phishing, or malicious, including unsolicited bulk email that may not be credential theft. Results should therefore be interpreted as evaluation on a broader spam and malicious email corpus, not a phishing-only test. The work also examines calibration, ablations, cross-validation, runtime, multi-label tactics, and preliminary adversarial vulnerability. The reported system focuses on lightweight explanations and sub-second inference, while documenting vocabulary shift and attribution disagreement as practical limitations.
- 
+- **Key Limitations & Findings:** A 40.0% out-of-vocabulary ratio between AVN and Enron contributes to a cross-dataset performance drop; results reflect evaluation on a broader spam/malicious email corpus (including unsolicited bulk email) rather than a strictly phishing-only test.
 ## Repository contents
 
 - `Notebooks/` - data preparation, model training, and evaluation notebooks.
@@ -50,4 +49,5 @@ The repository's `.gitignore` consists of:
 - Python bytecode and virtual environments: `__pycache__/`, `*.py[cod]`, `.venv/`, and `venv/`.
 - Jupyter checkpoint files: `.ipynb_checkpoints/`.
 - Environment variables and local IDE settings: `.env` and `.vscode/`.
+
 
