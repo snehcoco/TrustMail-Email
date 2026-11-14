@@ -1,0 +1,5 @@
+Model,Pair,b,c,p_value,significant
+Linear SVM,Full vs TF-IDF only,1228,712,0.0,True
+Linear SVM,Full vs NLP only,9841,2594,0.0,True
+Random Forest,Full vs TF-IDF only,5696,2156,0.0,True
+Random Forest,Full vs NLP only,8728,2984,0.0,True

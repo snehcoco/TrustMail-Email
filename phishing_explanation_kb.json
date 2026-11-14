@@ -1,0 +1,247 @@
+{
+  "_meta": {
+    "description": "Knowledge base for SHAP explanation generation.",
+    "version": "2.1",
+    "severity_scale": "Heuristic ordinal scale 1-5 (5=highest risk). Values reflect expert judgment on credential theft / deception severity. Not empirically calibrated; presented as a proposed weighting scheme.",
+    "keyword_matching_note": "Keywords are matched case-insensitively on email body text. Some keywords (e.g. 'act', 'now', 'today', 'important') are intentionally broad to maximise recall. False positives on legitimate emails are expected; the system relies on SHAP feature weights to filter noise. This is a heuristic pseudo-label scheme (weakly supervised); keywords are not human-validated ground truth.",
+    "changelog_2_1": "2.1: Removed feature names (url_like_count, has_attachment) from keyword lists. Removed duplicate 'invoice' from Attachment. Added Fear/Threat Language concept. Moved suspended/locked from Urgency to Fear. Fixed 'bit'+'ly' to 'bit.ly'+'bitly'. Improved vague NLP explanations. Added spam_malicious summary template. Updated confidence_templates low. Documented severity scale."
+  },
+  "concepts": [
+    {
+      "name": "Urgency / Pressure Language",
+      "keywords": [
+        "urgent",
+        "urgently",
+        "immediately",
+        "immediate",
+        "now",
+        "asap",
+        "hurry",
+        "expire",
+        "expires",
+        "expiring",
+        "deadline",
+        "today",
+        "warning",
+        "alert",
+        "suspend",
+        "act",
+        "important",
+        "attention"
+      ],
+      "description": "Uses urgency or pressure to encourage quick decisions without careful thinking.",
+      "noun_phrase": "urgent language"
+    },
+    {
+      "name": "Suspicious Links",
+      "keywords": [
+        "http",
+        "https",
+        "www",
+        "click",
+        "link",
+        "url",
+        "tinyurl",
+        "redirect",
+        "bit.ly",
+        "bitly"
+      ],
+      "description": "Contains or refers to web links that may redirect users to fraudulent websites.",
+      "noun_phrase": "links"
+    },
+    {
+      "name": "Credential Request",
+      "keywords": [
+        "password",
+        "login",
+        "verify",
+        "verification",
+        "credential",
+        "credentials",
+        "username",
+        "signin",
+        "authenticate",
+        "otp",
+        "pin",
+        "security"
+      ],
+      "description": "Requests login credentials or account verification.",
+      "noun_phrase": "credential requests"
+    },
+    {
+      "name": "Financial Incentive",
+      "keywords": [
+        "money",
+        "refund",
+        "payment",
+        "invoice",
+        "reward",
+        "gift",
+        "bank",
+        "billing",
+        "transaction",
+        "cash",
+        "winner",
+        "lottery"
+      ],
+      "description": "Mentions money, rewards, invoices, or financial transactions.",
+      "noun_phrase": "financial content"
+    },
+    {
+      "name": "Authority Impersonation",
+      "keywords": [
+        "support",
+        "admin",
+        "administrator",
+        "department",
+        "official",
+        "service",
+        "team",
+        "manager",
+        "hr",
+        "it"
+      ],
+      "description": "Appears to come from an organization or trusted authority.",
+      "noun_phrase": "trusted organizations"
+    },
+    {
+      "name": "Generic Greeting",
+      "keywords": [
+        "dear",
+        "customer",
+        "user",
+        "valued",
+        "kindly",
+        "confirm",
+        "update"
+      ],
+      "description": "Uses generic greetings instead of addressing the recipient personally.",
+      "noun_phrase": "generic greetings"
+    },
+    {
+      "name": "Attachment",
+      "keywords": [
+        "attachment",
+        "attached",
+        "file",
+        "document",
+        "scan"
+      ],
+      "description": "Contains or references an attachment.",
+      "noun_phrase": "attachments"
+    },
+    {
+      "name": "Fear / Threat Language",
+      "keywords": [
+        "suspended",
+        "locked",
+        "blocked",
+        "unauthorized",
+        "breach",
+        "compromised",
+        "disabled",
+        "terminated",
+        "illegal",
+        "violation",
+        "hacked",
+        "fraud"
+      ],
+      "description": "Uses fear or threat of consequences to pressure the recipient into acting.",
+      "noun_phrase": "threatening language"
+    }
+  ],
+  "nlp_feature_explanations": {
+    "word_count": {
+      "increases_risk": "The overall length of this email contributed to a higher phishing score because it resembled patterns commonly seen in phishing emails.",
+      "decreases_risk": "The email length was more similar to legitimate emails, reducing the phishing score."
+    },
+    "avg_word_length": {
+      "increases_risk": "Unusually short or long average word length increased the phishing score. Phishing emails often use very short words for urgency or unusually long technical-sounding words to appear authoritative.",
+      "decreases_risk": "The writing style appeared similar to legitimate emails, reducing the phishing score."
+    },
+    "uppercase_ratio": {
+      "increases_risk": "The use of capital letters increased the phishing score because phishing emails often use capitalization to attract attention.",
+      "decreases_risk": "The capitalization pattern resembled legitimate emails, reducing the phishing score."
+    },
+    "url_like_count": {
+      "increases_risk": "Links or web addresses increased the phishing score because phishing emails frequently direct users to external websites.",
+      "decreases_risk": "Very few suspicious links contributed to the phishing score."
+    },
+    "text_entropy": {
+      "increases_risk": "The writing pattern differed from typical legitimate emails, increasing the phishing score.",
+      "decreases_risk": "The writing pattern appeared similar to normal email communication, reducing the phishing score."
+    },
+    "action_density": {
+      "increases_risk": "Action-oriented language increased the phishing score because phishing emails often encourage immediate action.",
+      "decreases_risk": "The writing style appeared less aggressive than emails typically classified as phishing."
+    },
+    "has_attachment": {
+      "increases_risk": "The attachment increased the phishing score because attachments are commonly used to distribute malicious files.",
+      "decreases_risk": "Attachments did not contribute to the phishing score."
+    },
+    "repeated_char_patterns": {
+      "increases_risk": "Unusual repeated characters increased the phishing score because they are commonly seen in spam or phishing emails.",
+      "decreases_risk": "The writing did not contain unusual repeated-character patterns, reducing the phishing score."
+    },
+    "writing_error_total": {
+      "increases_risk": "The number of spelling and grammar errors increased the phishing score. Phishing emails frequently contain writing errors due to automated generation or non-native authorship.",
+      "decreases_risk": "The writing quality appeared similar to professionally written emails, reducing the phishing score."
+    }
+  },
+  "tfidf_templates": {
+    "increase": "The word '{feature}' increased the phishing score because it is commonly associated with phishing emails.",
+    "decrease": "The word '{feature}' reduced the phishing score because it is more commonly found in legitimate emails."
+  },
+  "impact_labels": {
+    "increase": "Increased phishing risk",
+    "decrease": "Reduced phishing risk"
+  },
+  "confidence_templates": {
+    "high": "Both machine learning models independently identified multiple phishing indicators, making this prediction highly reliable.",
+    "medium": "Most important phishing indicators were identified consistently by both models.",
+    "low": "The models show limited agreement on key indicators, or explanation consistency (Sx) is low. This prediction should be interpreted with caution."
+  },
+  "summary_templates": {
+    "phishing": "This email exhibits several characteristics commonly associated with phishing attacks.",
+    "legitimate": "The email resembles normal legitimate communication and contains very few phishing indicators.",
+    "spam_malicious": "This email exhibits several characteristics commonly associated with spam or malicious email campaigns."
+  },
+  "counterfactual_templates": {
+    "default": "If this email did not contain {items}, it would likely receive a much lower phishing score.",
+    "legitimate": "If additional suspicious indicators such as {items} were present, the email would likely be classified as phishing."
+  },
+  "risk_messages": {
+    "VERY HIGH": "Immediate caution is recommended. The email contains strong phishing characteristics.",
+    "HIGH": "The email appears highly suspicious and should be treated carefully.",
+    "MEDIUM": "Some phishing indicators were detected. Verify before taking any action.",
+    "LOW": "Very few phishing indicators were detected."
+  },
+  "analyst_labels": {
+    "svm": "Linear SVM",
+    "rf": "Random Forest",
+    "trust": "Explanation Trust Score",
+    "common": "Common Concepts",
+    "svm_only": "SVM-only Concepts",
+    "rf_only": "RF-only Concepts"
+  },
+  "severity": {
+    "credential request": 5,
+    "suspicious links": 5,
+    "urgency / pressure language": 4,
+    "authority impersonation": 4,
+    "attachment": 3,
+    "generic greeting": 2,
+    "financial incentive": 3,
+    "fear / threat language": 4
+  },
+  "concept_phrases": {
+    "Credential Request": "a request to verify or re-enter account credentials",
+    "Suspicious Links": "multiple embedded links",
+    "Urgency / Pressure Language": "urgent language encouraging immediate action",
+    "Authority Impersonation": "impersonation of a trusted organization",
+    "Financial Incentive": "financial or reward-related content",
+    "Generic Greeting": "a generic greeting",
+    "Attachment": "an unexpected attachment",
+    "Fear / Threat Language": "threatening language implying account suspension or security breach"
+  }
+}

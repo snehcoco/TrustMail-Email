@@ -1,0 +1,2 @@
+Model,Train dataset,Eval dataset,n_eval,Protocol,Threshold,Accuracy,Precision,Recall,F1-score,ROC-AUC,False Positives,False Negatives,Mean inference time
+DistilBERT,AVN,Enron,28255,Zero-shot (AVN-fitted params),0.5,78.50%,82.47%,70.76%,76.17%,0.8605,2064,4012,0.0038 s/email

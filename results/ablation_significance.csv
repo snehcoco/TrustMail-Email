@@ -1,0 +1,5 @@
+Condition A,F1(A),Condition B,F1(B),ΔF1 (B − A),Chi²,p-value,Significant
+Feature: TF-IDF only,0.964,Feature: TF-IDF + Numerical (RF),0.9779,0.0139,48.5215,0.0,Yes
+Ensemble: Best Single (LightGBM),0.9659,Ensemble: Voting Classifier,0.9661,0.0003,0.0374,0.846687,No
+Ensemble: Best Single (LightGBM),0.9659,Ensemble: Stacking Classifier,0.9715,0.0056,6.7853,0.009191,Yes
+Ensemble: Voting Classifier,0.9661,Ensemble: Stacking Classifier,0.9715,0.0054,8.0074,0.004659,Yes

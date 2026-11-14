@@ -1,0 +1,7 @@
+pair,"b (A wrong, B right)","c (A right, B wrong)",p_value,significant_p005,test_type
+SVM (linear) vs SVM (kernel),2625,4204,0.0,True,chi2
+SVM (linear) vs Random Forest,2511,4019,0.0,True,chi2
+SVM (linear) vs Ensemble,2325,2735,0.0,True,chi2
+SVM (kernel) vs Random Forest,3900,3829,0.425901,False,chi2
+SVM (kernel) vs Ensemble,1552,383,0.0,True,chi2
+Random Forest vs Ensemble,3629,2531,0.0,True,chi2

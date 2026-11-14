@@ -1,0 +1,13 @@
+classifier,metric,point,ci_lower,ci_upper
+SVM (linear),Accuracy,0.8024,0.7977,0.8069
+SVM (linear),F1,0.7925,0.7872,0.7976
+SVM (linear),Recall,0.7771,0.7703,0.7839
+SVM (kernel),Accuracy,0.7465,0.7416,0.7517
+SVM (kernel),F1,0.7685,0.7635,0.7738
+SVM (kernel),Recall,0.8663,0.8608,0.8716
+Random Forest,Accuracy,0.749,0.7441,0.7541
+Random Forest,F1,0.7188,0.7126,0.7252
+Random Forest,Recall,0.6606,0.6529,0.6685
+Ensemble,Accuracy,0.7879,0.7833,0.7927
+Ensemble,F1,0.7962,0.791,0.8014
+Ensemble,Recall,0.8531,0.8473,0.8588

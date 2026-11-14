@@ -1,0 +1,8 @@
+Metric,DistilBERT (zero-shot),Linear SVM (Table IX),SVM-RF Ensemble (Table IX)
+Accuracy,78.50%,80.24%,81.45%
+Precision,82.47%,80.85%,84.36%
+Recall,70.76%,77.71%,75.85%
+F1-score,76.17%,79.25%,79.88%
+False Positives,2064,"2,525","1,929"
+False Negatives,4012,"3,058","3,313"
+Mean inference time,0.0038 s/email,-,0.039 s/email

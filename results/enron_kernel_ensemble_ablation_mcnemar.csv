@@ -1,0 +1,11 @@
+pair,b,c,p_value,significant_p005
+Majority Vote vs Weighted Avg,2,7,0.179688,False
+Majority Vote vs Threshold Tiebreak,1,7,0.070312,False
+Majority Vote vs Abstain→Vote,6,4,0.753906,False
+Majority Vote vs Stacking (hold-out),5,1,0.21875,False
+Weighted Avg vs Threshold Tiebreak,0,1,1.0,False
+Weighted Avg vs Abstain→Vote,11,4,0.118469,False
+Weighted Avg vs Stacking (hold-out),11,2,0.022461,True
+Threshold Tiebreak vs Abstain→Vote,12,4,0.076813,False
+Threshold Tiebreak vs Stacking (hold-out),12,2,0.012939,True
+Abstain→Vote vs Stacking (hold-out),3,1,0.625,False

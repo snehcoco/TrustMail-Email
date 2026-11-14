@@ -1,0 +1,4 @@
+Model,Accuracy (%),Precision (%),Recall (%),F1 (%),n_eval
+Linear SVM,80.24,80.85,77.71,79.25,28256
+Random Forest,74.9,78.83,66.06,71.88,28256
+Ensemble (2M),81.45,84.36,75.85,79.88,28256
