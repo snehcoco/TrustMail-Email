@@ -1,6 +1,18 @@
-# TrustMail Email Phishing
+﻿# TrustMail Email Phishing
 
-This repository contains Google Colab notebooks for exploring and classifying phishing emails. The experiments use Enron email data and the AVN corpus to compare text features and machine-learning models.
+TrustMail is an explainable hybrid ensemble framework for email phishing detection. It combines email text with phishing-oriented structural features, uses calibrated machine-learning models to classify messages, and provides local explanations for their predictions. The project studies both predictive performance and whether independent models agree on the evidence behind their decisions.
+
+## Project overview
+
+The primary system represents email bodies with 5,000 TF-IDF unigram and bigram features plus nine phishing-oriented structural features. A calibrated Linear Support Vector Machine (SVM) and a Random Forest provide complementary predictions, combined through weighted probability averaging. A supplementary three-model experiment adds an RBF Kernel SVM.
+
+For explainability, model-specific SHAP explainers estimate local feature contributions. A rule-based layer maps attributions to seven human-interpretable phishing concepts and remediation advice. TrustMail measures explanation agreement with a SHAP Consistency Score (mean 44.03 on Enron) and an Explanation Evidence-Convergence Score (EECS; mean 62.97 on Enron), which combines prediction agreement, probability similarity, concept agreement, and attribution consistency.
+
+## Evaluation highlights
+
+Models are trained on the AVN corpus of 41,000 emails (32,800 training and 8,200 held out). The primary cross-dataset experiment evaluates them on a decontaminated Enron spam and malicious email corpus of 28,256 emails, without retraining. In this zero-shot evaluation, the two-model SVM–Random Forest ensemble reports 81.45% accuracy, 84.36% precision, 75.85% recall, and 79.88% F1-score. A reproduced PhishingGNN baseline evaluated under the same protocol reports 78.50% accuracy, 70.76% recall, and 76.17% F1-score. The supplementary Linear SVM–Kernel SVM–Random Forest ensemble achieves 78.79% accuracy on Enron.
+
+The cross-dataset performance drop is a key finding. The mean out-of-vocabulary ratio between AVN and Enron is 40.0%, indicating substantial vocabulary mismatch that likely contributes to the drop. Enron's positive class includes messages labeled spam, phishing, or malicious, including unsolicited bulk email that may not be credential theft. Results should therefore be interpreted as evaluation on a broader spam and malicious email corpus, not a phishing-only test. The work also examines calibration, ablations, cross-validation, runtime, multi-label tactics, and preliminary adversarial vulnerability. The reported system focuses on lightweight explanations and sub-second inference, while documenting vocabulary shift and attribution disagreement as practical limitations.
 
 ## Repository contents
 
@@ -24,8 +36,18 @@ This repository contains Google Colab notebooks for exploring and classifying ph
 
 ## Running the notebooks
 
-The notebooks are set up for Google Colab. Open a notebook and run its setup cells first. Install cells list the packages required for that notebook.
+The notebooks are set up for Google Colab. Open a notebook and run its setup cells first. 
 
-Some notebooks mount Google Drive and expect model files, datasets, or output folders at paths defined near the top of the notebook. Update those paths to match your Drive setup. In particular, the DistilBERT zero-shot evaluation needs an AVN-trained model and a preprocessed Enron dataset.
+Install cells list the packages required for that notebook.
 
-For the full workflow, prepare the Enron data before running notebooks that use the generated features or models. Outputs are saved to the paths configured in each notebook; the repository also includes previously generated files in `preprocessed_dataset/`, `nlp_features/`, and `results/`.
+
+## Files excluded from version control
+
+The repository's `.gitignore` excludes local and generated files that should not be committed:
+
+- Large preprocessed datasets: `preprocessed_dataset/final_preprocessed_dataset_nlp.csv` and `preprocessed_dataset/cleaned_nlp_dataset.csv`.
+- Trained model checkpoints and directories: `*.pkl`, `*.npy`, `bert/`, `distilbert/`, `bert_saved/`, `distilbert_saved/`, and `deep_learning/`.
+- Python bytecode and virtual environments: `__pycache__/`, `*.py[cod]`, `.venv/`, and `venv/`.
+- Jupyter checkpoint files: `.ipynb_checkpoints/`.
+- Environment variables and local IDE settings: `.env` and `.vscode/`.
+
