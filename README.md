@@ -45,7 +45,7 @@ Install cells list the packages required for that notebook.
 
 The repository's `.gitignore` excludes local and generated files that should not be committed:
 
-- Large preprocessed datasets: `preprocessed_dataset/final_preprocessed_dataset_nlp.csv` and `preprocessed_dataset/cleaned_nlp_dataset.csv`.
+- Large preprocessed datasets (excluded from this repository due to GitHub's 100 MB per-file size limit): `preprocessed_dataset/final_preprocessed_dataset_nlp.csv` and `preprocessed_dataset/cleaned_nlp_dataset.csv`.
 - Trained model checkpoints and directories: `*.pkl`, `*.npy`, `bert/`, `distilbert/`, `bert_saved/`, `distilbert_saved/`, and `deep_learning/`.
 - Python bytecode and virtual environments: `__pycache__/`, `*.py[cod]`, `.venv/`, and `venv/`.
 - Jupyter checkpoint files: `.ipynb_checkpoints/`.
