@@ -13,7 +13,7 @@ For explainability, model-specific SHAP explainers estimate local feature contri
 Models are trained on the AVN corpus of 41,000 emails (32,800 training and 8,200 held out). The primary cross-dataset experiment evaluates them on a decontaminated Enron spam and malicious email corpus of 28,256 emails, without retraining. In this zero-shot evaluation, the two-model SVM–Random Forest ensemble reports 81.45% accuracy, 84.36% precision, 75.85% recall, and 79.88% F1-score. A reproduced PhishingGNN baseline evaluated under the same protocol reports 78.50% accuracy, 70.76% recall, and 76.17% F1-score. The supplementary Linear SVM–Kernel SVM–Random Forest ensemble achieves 78.79% accuracy on Enron.
 
 The cross-dataset performance drop is a key finding. The mean out-of-vocabulary ratio between AVN and Enron is 40.0%, indicating substantial vocabulary mismatch that likely contributes to the drop. Enron's positive class includes messages labeled spam, phishing, or malicious, including unsolicited bulk email that may not be credential theft. Results should therefore be interpreted as evaluation on a broader spam and malicious email corpus, not a phishing-only test. The work also examines calibration, ablations, cross-validation, runtime, multi-label tactics, and preliminary adversarial vulnerability. The reported system focuses on lightweight explanations and sub-second inference, while documenting vocabulary shift and attribution disagreement as practical limitations.
-
+ 
 ## Repository contents
 
 - `Notebooks/` - data preparation, model training, and evaluation notebooks.
